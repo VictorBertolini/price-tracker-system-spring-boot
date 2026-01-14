@@ -1,0 +1,1 @@
+CREATE DATABASE price_tracker_db;
