@@ -4,8 +4,8 @@ import org.jsoup.nodes.Element;
 
 import java.math.BigDecimal;
 
-public  class Transformer {
-    public BigDecimal transformElementToBigDecimal(Element element) {
+public class PriceTransformer {
+    public BigDecimal toBigDecimal(Element element) {
         if (element == null)
             throw new RuntimeException("Price is not found");
 

@@ -1,4 +1,4 @@
-package com.bertolini.price_tracker_api.Model;
+package com.bertolini.price_tracker_api.Model.entity;
 
 import com.bertolini.price_tracker_api.DTO.product.RegistryProductDTO;
 import com.bertolini.price_tracker_api.DTO.product.UpdateProductDTO;

@@ -1,4 +1,4 @@
-package com.bertolini.price_tracker_api.Model;
+package com.bertolini.price_tracker_api.Model.entity;
 
 import com.bertolini.price_tracker_api.DTO.user.RegistryUserDTO;
 import com.bertolini.price_tracker_api.DTO.user.UpdateUserDTO;
@@ -7,7 +7,6 @@ import jakarta.validation.Valid;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
