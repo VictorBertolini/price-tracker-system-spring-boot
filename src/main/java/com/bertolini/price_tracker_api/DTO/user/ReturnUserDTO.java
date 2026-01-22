@@ -1,6 +1,6 @@
 package com.bertolini.price_tracker_api.DTO.user;
 
-import com.bertolini.price_tracker_api.Model.User;
+import com.bertolini.price_tracker_api.Model.entity.User;
 
 public record ReturnUserDTO(
         Long id,

@@ -40,4 +40,9 @@ public class Price {
         this.product = product;
     }
 
+    public Price(BigDecimal price, Product product) {
+        this.product = product;
+        this.price = price;
+        this.scrapingDate = LocalDateTime.now();
+    }
 }

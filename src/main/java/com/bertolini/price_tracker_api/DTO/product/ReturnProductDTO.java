@@ -1,7 +1,7 @@
 package com.bertolini.price_tracker_api.DTO.product;
 
 
-import com.bertolini.price_tracker_api.Model.Product;
+import com.bertolini.price_tracker_api.Model.entity.Product;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

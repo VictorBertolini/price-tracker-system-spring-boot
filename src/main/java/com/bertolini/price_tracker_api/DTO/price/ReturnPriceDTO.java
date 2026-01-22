@@ -1,6 +1,6 @@
 package com.bertolini.price_tracker_api.DTO.price;
 
-import com.bertolini.price_tracker_api.Model.Price;
+import com.bertolini.price_tracker_api.Model.entity.Price;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;

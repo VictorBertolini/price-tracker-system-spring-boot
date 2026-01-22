@@ -34,6 +34,13 @@ public class Product {
     @Column(name = "targetPrice")
     private BigDecimal targetPrice;
 
+    @Column(name = "xpath")
+    private String xpath;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "shop_type")
+    private ShopType shopType;
+
     @Column(name = "createdAt")
     private LocalDateTime createdAt;
 
