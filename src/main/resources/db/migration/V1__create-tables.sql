@@ -25,7 +25,7 @@ CREATE TABLE Product_tb (
 CREATE TABLE Price_tb (
    price_id BIGINT AUTO_INCREMENT PRIMARY KEY,
    price DECIMAL(10,2) NOT NULL,
-   scraping_data TIMESTAMP NOT NULL,
+   scraping_date TIMESTAMP NOT NULL,
    product_id BIGINT NOT NULL,
 
    CONSTRAINT fk_price_product
