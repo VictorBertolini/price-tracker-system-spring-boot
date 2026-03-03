@@ -1,7 +1,7 @@
 package com.bertolini.price_tracker_api.repository;
 
-import com.bertolini.price_tracker_api.Model.entity.Product;
-import com.bertolini.price_tracker_api.Model.entity.User;
+import com.bertolini.price_tracker_api.domain.Product;
+import com.bertolini.price_tracker_api.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
