@@ -1,25 +1,52 @@
-package com.bertolini.price_tracker_api.Model.scraping;
+package com.bertolini.price_tracker_api.infrastructure.scraping;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import java.time.Duration;
+import java.util.Arrays;
 
 @Component
 public class Scraper {
 
-    public Document connect(String url) throws IOException {
-        return Jsoup.connect(url)
-                .data("query", "Java")
-                .userAgent("Mozilla")
-                .cookie("auth", "token")
-                .timeout(3000)
-                .get();
+    WebDriver driver;
+
+    public boolean connect() {
+        try {
+            FirefoxOptions options = new FirefoxOptions();
+//            options.addArguments("--headless");
+            driver =  new FirefoxDriver(options);
+            return true;
+        } catch (Exception e) {
+            System.err.println("Conection to Selenium WebDriver Failed " + Arrays.toString(e.getStackTrace()));
+        }
+        return false;
     }
 
-    public Elements getElements(Document doc, String Xpath) {
-        return doc.selectXpath(Xpath);
+    public String getElements(String url, String xpath) {
+        try {
+            driver.get(url);
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+            WebElement elementPrice = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))
+            );
+            return elementPrice.getText();
+
+        } catch (Exception e) {
+            System.err.println("Couldn't find price: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public void disconnect() {
+        driver.quit();
     }
 }
