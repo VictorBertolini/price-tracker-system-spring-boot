@@ -1,12 +1,12 @@
-package com.bertolini.price_tracker_api.DTO.price;
+package com.bertolini.price_tracker_api.dto.price;
 
-import com.bertolini.price_tracker_api.Model.entity.Price;
+import com.bertolini.price_tracker_api.domain.Price;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record ReturnPriceDTO(
+public record PriceResponse(
         @NotNull
         Long id,
         @NotNull
@@ -14,7 +14,7 @@ public record ReturnPriceDTO(
         @NotNull
         LocalDateTime scraping_data
 ) {
-    public ReturnPriceDTO(Price price) {
+    public PriceResponse(Price price) {
         this(price.getId(), price.getPrice(), price.getScrapingDate());
     }
 }

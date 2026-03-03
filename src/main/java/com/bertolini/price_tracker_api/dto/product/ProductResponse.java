@@ -1,14 +1,14 @@
-package com.bertolini.price_tracker_api.DTO.product;
+package com.bertolini.price_tracker_api.dto.product;
 
 
-import com.bertolini.price_tracker_api.Model.entity.Product;
+import com.bertolini.price_tracker_api.domain.Product;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record ReturnProductDTO(
+public record ProductResponse(
         @NotNull
         Long id,
 
@@ -24,7 +24,7 @@ public record ReturnProductDTO(
         LocalDateTime createdAt
 ) {
 
-    public ReturnProductDTO(Product product) {
+    public ProductResponse(Product product) {
         this(product.getId(), product.getName(), product.getUrl(), product.getTargetPrice(), product.getCreatedAt());
     }
 

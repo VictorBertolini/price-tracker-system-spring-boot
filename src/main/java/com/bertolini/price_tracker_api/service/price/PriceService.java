@@ -1,6 +1,6 @@
-package com.bertolini.price_tracker_api.services.crud;
+package com.bertolini.price_tracker_api.services.price;
 
-import com.bertolini.price_tracker_api.Model.entity.Price;
+import com.bertolini.price_tracker_api.model.Price;
 import com.bertolini.price_tracker_api.repository.PriceRepository;
 import com.bertolini.price_tracker_api.repository.ProductRepository;
 import org.springframework.data.domain.Page;
@@ -22,16 +22,4 @@ public class PriceService {
     public Page<Price> getPrices(Long productId, Pageable pageable) {
         return priceRepository.findByProduct_Id(productId, pageable);
     }
-
-//    @Transactional
-//    public Price createPrice(RegistryPriceDTO data, Long productId) {
-//        Product product = productRepository.getReferenceById(productId);
-//        Price price = new Price(data, product);
-//        priceRepository.save(price);
-//
-//        return price;
-//    }
-
-
-
 }

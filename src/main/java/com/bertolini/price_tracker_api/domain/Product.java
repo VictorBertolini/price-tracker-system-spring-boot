@@ -1,7 +1,7 @@
-package com.bertolini.price_tracker_api.Model.entity;
+package com.bertolini.price_tracker_api.model;
 
-import com.bertolini.price_tracker_api.DTO.product.RegistryProductDTO;
-import com.bertolini.price_tracker_api.DTO.product.UpdateProductDTO;
+import com.bertolini.price_tracker_api.dto.product.RegistryProductDTO;
+import com.bertolini.price_tracker_api.dto.product.UpdateProductDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "Product_tb")
+@Table(name = "product_tb")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Product {
     @Column(name = "url")
     private String url;
 
-    @Column(name = "targetPrice")
+    @Column(name = "target_price")
     private BigDecimal targetPrice;
 
     @Column(name = "xpath")
@@ -41,7 +41,7 @@ public class Product {
     @Column(name = "shop_type")
     private ShopType shopType;
 
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @ManyToOne
@@ -54,9 +54,11 @@ public class Product {
     public Product(RegistryProductDTO data, User user) {
         this.name = data.name();
         this.url = data.url();
-        this.targetPrice = data.targetValue();
+        this.targetPrice = data.targetPrice();
         this.createdAt = LocalDateTime.now();
         this.user = user;
+        this.xpath = data.xpath();
+        this.shopType = data.shopType();
     }
 
     public void updateInformation(UpdateProductDTO data) {

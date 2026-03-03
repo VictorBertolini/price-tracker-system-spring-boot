@@ -1,7 +1,7 @@
-package com.bertolini.price_tracker_api.Model.entity;
+package com.bertolini.price_tracker_api.model;
 
 
-import com.bertolini.price_tracker_api.DTO.price.RegistryPriceDTO;
+import com.bertolini.price_tracker_api.dto.price.RegistryPriceDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "Price_tb")
+@Table(name = "price_tb")
 public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class Price {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "scrapingData")
+    @Column(name = "scraping_date")
     private LocalDateTime scrapingDate;
 
     @ManyToOne

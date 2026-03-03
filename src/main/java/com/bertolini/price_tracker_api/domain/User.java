@@ -1,7 +1,7 @@
-package com.bertolini.price_tracker_api.Model.entity;
+package com.bertolini.price_tracker_api.model;
 
-import com.bertolini.price_tracker_api.DTO.user.RegistryUserDTO;
-import com.bertolini.price_tracker_api.DTO.user.UpdateUserDTO;
+import com.bertolini.price_tracker_api.dto.user.RegistryUserDTO;
+import com.bertolini.price_tracker_api.dto.user.UpdateUserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "User_tb")
+@Table(name = "user_tb")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

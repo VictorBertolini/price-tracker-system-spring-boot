@@ -1,18 +1,22 @@
-package com.bertolini.price_tracker_api.services.crud;
+package com.bertolini.price_tracker_api.services.product;
 
-import com.bertolini.price_tracker_api.DTO.product.RegistryProductDTO;
-import com.bertolini.price_tracker_api.DTO.product.ReturnProductDTO;
-import com.bertolini.price_tracker_api.DTO.product.UpdateProductDTO;
-import com.bertolini.price_tracker_api.Model.entity.Product;
-import com.bertolini.price_tracker_api.Model.entity.User;
+import com.bertolini.price_tracker_api.dto.product.RegistryProductDTO;
+import com.bertolini.price_tracker_api.dto.product.ReturnProductDTO;
+import com.bertolini.price_tracker_api.dto.product.UpdateProductDTO;
+import com.bertolini.price_tracker_api.exceptions.InvalidProductException;
+import com.bertolini.price_tracker_api.infrastructure.scraping.XpathRegistry;
+import com.bertolini.price_tracker_api.model.Product;
+import com.bertolini.price_tracker_api.model.User;
 import com.bertolini.price_tracker_api.repository.ProductRepository;
 import com.bertolini.price_tracker_api.repository.UserRepository;
 import com.bertolini.price_tracker_api.services.scraping.ScrapingService;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@AllArgsConstructor
 @Service
 public class ProductService {
 
@@ -22,19 +26,24 @@ public class ProductService {
 
     private final ScrapingService scrapingService;
 
-    public ProductService(ProductRepository productRepository, UserRepository userRepository, ScrapingService scrapingService) {
-        this.productRepository = productRepository;
-        this.userRepository = userRepository;
-        this.scrapingService = scrapingService;
-    }
+    private final XpathRegistry xpathRegistry;
 
     @Transactional
     public Product createProduct(RegistryProductDTO data, Long userId) {
         User user = userRepository.getReferenceById(userId);
         Product product = new Product(data, user);
-        productRepository.save(product);
+        String xpath = xpathRegistry.getXpath(product.getShopType(), product.getXpath());
+        product.setXpath(xpath);
 
-        return product;
+        Product savedProduct = productRepository.save(product);
+        try {
+            scrapingService.scrapPrice(savedProduct);
+        }
+        catch (Exception e) {
+            deleteProduct(savedProduct.getId());
+            throw new InvalidProductException("Product couldn't be created, an error occured! " + e.getMessage());
+        }
+        return savedProduct;
     }
 
     @Transactional

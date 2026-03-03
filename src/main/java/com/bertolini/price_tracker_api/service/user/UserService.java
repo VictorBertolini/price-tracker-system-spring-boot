@@ -1,8 +1,8 @@
-package com.bertolini.price_tracker_api.services.crud;
+package com.bertolini.price_tracker_api.services.user;
 
-import com.bertolini.price_tracker_api.DTO.user.RegistryUserDTO;
-import com.bertolini.price_tracker_api.DTO.user.UpdateUserDTO;
-import com.bertolini.price_tracker_api.Model.entity.User;
+import com.bertolini.price_tracker_api.dto.user.RegistryUserDTO;
+import com.bertolini.price_tracker_api.dto.user.UpdateUserDTO;
+import com.bertolini.price_tracker_api.model.User;
 import com.bertolini.price_tracker_api.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
