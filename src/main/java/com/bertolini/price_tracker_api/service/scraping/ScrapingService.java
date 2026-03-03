@@ -1,7 +1,7 @@
-package com.bertolini.price_tracker_api.services.scraping;
+package com.bertolini.price_tracker_api.service.scraping;
 
-import com.bertolini.price_tracker_api.model.Price;
-import com.bertolini.price_tracker_api.model.Product;
+import com.bertolini.price_tracker_api.domain.Price;
+import com.bertolini.price_tracker_api.domain.Product;
 import com.bertolini.price_tracker_api.infrastructure.scraping.PriceTransformer;
 import com.bertolini.price_tracker_api.infrastructure.scraping.Scraper;
 import com.bertolini.price_tracker_api.repository.PriceRepository;

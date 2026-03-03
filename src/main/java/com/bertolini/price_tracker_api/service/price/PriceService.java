@@ -1,6 +1,6 @@
-package com.bertolini.price_tracker_api.services.price;
+package com.bertolini.price_tracker_api.service.price;
 
-import com.bertolini.price_tracker_api.model.Price;
+import com.bertolini.price_tracker_api.domain.Price;
 import com.bertolini.price_tracker_api.repository.PriceRepository;
 import com.bertolini.price_tracker_api.repository.ProductRepository;
 import org.springframework.data.domain.Page;

@@ -1,8 +1,8 @@
-package com.bertolini.price_tracker_api.services.user;
+package com.bertolini.price_tracker_api.service.user;
 
-import com.bertolini.price_tracker_api.dto.user.RegistryUserDTO;
-import com.bertolini.price_tracker_api.dto.user.UpdateUserDTO;
-import com.bertolini.price_tracker_api.model.User;
+import com.bertolini.price_tracker_api.dto.user.UserCreateRequest;
+import com.bertolini.price_tracker_api.dto.user.UserUpdateRequest;
+import com.bertolini.price_tracker_api.domain.User;
 import com.bertolini.price_tracker_api.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ public class UserService {
     }
 
     @Transactional
-    public User createUser(RegistryUserDTO data) {
+    public User createUser(UserCreateRequest data) {
         User user = new User(data);
         userRepository.save(user);
         return user;
@@ -35,7 +35,7 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(UpdateUserDTO data) {
+    public User updateUser(UserUpdateRequest data) {
         User user = userRepository.getReferenceById(data.id());
         user.updateInformation(data);
         return user;
