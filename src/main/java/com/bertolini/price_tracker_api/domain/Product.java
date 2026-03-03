@@ -1,7 +1,7 @@
-package com.bertolini.price_tracker_api.model;
+package com.bertolini.price_tracker_api.domain;
 
-import com.bertolini.price_tracker_api.dto.product.RegistryProductDTO;
-import com.bertolini.price_tracker_api.dto.product.UpdateProductDTO;
+import com.bertolini.price_tracker_api.dto.product.ProductCreateRequest;
+import com.bertolini.price_tracker_api.dto.product.ProductUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -51,7 +51,7 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Price> historyPrices;
 
-    public Product(RegistryProductDTO data, User user) {
+    public Product(ProductCreateRequest data, User user) {
         this.name = data.name();
         this.url = data.url();
         this.targetPrice = data.targetPrice();
@@ -61,7 +61,7 @@ public class Product {
         this.shopType = data.shopType();
     }
 
-    public void updateInformation(UpdateProductDTO data) {
+    public void updateInformation(ProductUpdateRequest data) {
         if (data.name() != null) {
             this.name = data.name();
         }

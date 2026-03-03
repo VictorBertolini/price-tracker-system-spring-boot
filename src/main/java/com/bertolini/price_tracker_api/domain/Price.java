@@ -1,7 +1,7 @@
-package com.bertolini.price_tracker_api.model;
+package com.bertolini.price_tracker_api.domain;
 
 
-import com.bertolini.price_tracker_api.dto.price.RegistryPriceDTO;
+import com.bertolini.price_tracker_api.dto.price.PriceCreateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class Price {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public Price(RegistryPriceDTO data, Product product) {
+    public Price(PriceCreateRequest data, Product product) {
         this.price = data.price();
         this.scrapingDate = data.scrapingData();
         this.product = product;

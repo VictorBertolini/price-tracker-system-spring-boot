@@ -1,7 +1,7 @@
-package com.bertolini.price_tracker_api.model;
+package com.bertolini.price_tracker_api.domain;
 
-import com.bertolini.price_tracker_api.dto.user.RegistryUserDTO;
-import com.bertolini.price_tracker_api.dto.user.UpdateUserDTO;
+import com.bertolini.price_tracker_api.dto.user.UserCreateRequest;
+import com.bertolini.price_tracker_api.dto.user.UserUpdateRequest;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
@@ -37,14 +37,14 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Product> registeredProducts;
 
-    public User(RegistryUserDTO data) {
+    public User(UserCreateRequest data) {
         this.name = data.name();
         this.email = data.email();
         this.password = data.password();
         this.createdAt = LocalDateTime.now();
     }
 
-    public void updateInformation(@Valid UpdateUserDTO data) {
+    public void updateInformation(@Valid UserUpdateRequest data) {
         if (data.name() != null) {
             this.name = data.name();
         }
