@@ -1,10 +1,10 @@
 package com.bertolini.price_tracker_api.controller;
 
-import com.bertolini.price_tracker_api.DTO.product.RegistryProductDTO;
-import com.bertolini.price_tracker_api.DTO.product.ReturnProductDTO;
-import com.bertolini.price_tracker_api.DTO.product.UpdateProductDTO;
-import com.bertolini.price_tracker_api.Model.entity.Product;
-import com.bertolini.price_tracker_api.services.crud.ProductService;
+import com.bertolini.price_tracker_api.dto.product.ProductCreateRequest;
+import com.bertolini.price_tracker_api.dto.product.ProductResponse;
+import com.bertolini.price_tracker_api.dto.product.ProductUpdateRequest;
+import com.bertolini.price_tracker_api.domain.Product;
+import com.bertolini.price_tracker_api.service.product.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,30 +27,30 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ReturnProductDTO> productResgistry(@RequestBody @Valid RegistryProductDTO data, @PathVariable Long userId, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ProductResponse> productResgistry(@RequestBody @Valid ProductCreateRequest data, @PathVariable Long userId, UriComponentsBuilder uriBuilder) {
         Product product = productService.createProduct(data, userId);
 
         URI uri = uriBuilder.path("/product/{id}").buildAndExpand(product.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new ReturnProductDTO(product));
+        return ResponseEntity.created(uri).body(new ProductResponse(product));
     }
 
     @DeleteMapping("/{productId}")
-    public ResponseEntity<ReturnProductDTO> deleteProduct(@PathVariable Long productId) {
+    public ResponseEntity<ProductResponse> deleteProduct(@PathVariable Long productId) {
         productService.deleteProduct(productId);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{productId}")
     @Transactional
-    public ResponseEntity<ReturnProductDTO> updateProduct(@RequestBody UpdateProductDTO data, @PathVariable Long productId) {
+    public ResponseEntity<ProductResponse> updateProduct(@RequestBody ProductUpdateRequest data, @PathVariable Long productId) {
         Product product = productService.updateProduct(data, productId);
-        return ResponseEntity.ok(new ReturnProductDTO(product));
+        return ResponseEntity.ok(new ProductResponse(product));
     }
 
     @GetMapping
-    public ResponseEntity<Page<ReturnProductDTO>> getUserProducts(@PathVariable Long userId, @PageableDefault(size=5, sort={"createdAt"}) Pageable pageable) {
-        Page<ReturnProductDTO> products = productService.getUserProducts(userId, pageable);
+    public ResponseEntity<Page<ProductResponse>> getUserProducts(@PathVariable Long userId, @PageableDefault(size=5, sort={"createdAt"}) Pageable pageable) {
+        Page<ProductResponse> products = productService.getUserProducts(userId, pageable);
         return ResponseEntity.ok(products);
     }
 

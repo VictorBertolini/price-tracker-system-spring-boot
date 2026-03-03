@@ -1,10 +1,10 @@
 package com.bertolini.price_tracker_api.controller;
 
-import com.bertolini.price_tracker_api.DTO.user.RegistryUserDTO;
-import com.bertolini.price_tracker_api.DTO.user.ReturnUserDTO;
-import com.bertolini.price_tracker_api.DTO.user.UpdateUserDTO;
-import com.bertolini.price_tracker_api.Model.entity.User;
-import com.bertolini.price_tracker_api.services.crud.UserService;
+import com.bertolini.price_tracker_api.dto.user.UserCreateRequest;
+import com.bertolini.price_tracker_api.dto.user.UserResponse;
+import com.bertolini.price_tracker_api.dto.user.UserUpdateRequest;
+import com.bertolini.price_tracker_api.domain.User;
+import com.bertolini.price_tracker_api.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,34 +26,34 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<ReturnUserDTO> registryUser(@RequestBody @Valid RegistryUserDTO data, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<UserResponse> registryUser(@RequestBody @Valid UserCreateRequest data, UriComponentsBuilder uriBuilder) {
         User user = userService.createUser(data);
 
         URI uri = uriBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new ReturnUserDTO(user));
+        return ResponseEntity.created(uri).body(new UserResponse(user));
     }
 
     @GetMapping
-    public ResponseEntity<Page<ReturnUserDTO>> getUsers(@PageableDefault(size=5, sort = {"name"}) Pageable pageable) {
-        Page<ReturnUserDTO> userPage = userService.getUsers(pageable).map(ReturnUserDTO::new);
+    public ResponseEntity<Page<UserResponse>> getUsers(@PageableDefault(size=5, sort = {"name"}) Pageable pageable) {
+        Page<UserResponse> userPage = userService.getUsers(pageable).map(UserResponse::new);
         return ResponseEntity.ok(userPage);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReturnUserDTO> detail(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> detail(@PathVariable Long id) {
         User user = userService.getUser(id);
-        return ResponseEntity.ok(new ReturnUserDTO(user));
+        return ResponseEntity.ok(new UserResponse(user));
     }
 
     @PutMapping
-    public ResponseEntity<ReturnUserDTO> updateUser(@RequestBody @Valid UpdateUserDTO data) {
+    public ResponseEntity<UserResponse> updateUser(@RequestBody @Valid UserUpdateRequest data) {
         User user = userService.updateUser(data);
-        return ResponseEntity.ok(new ReturnUserDTO(user));
+        return ResponseEntity.ok(new UserResponse(user));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ReturnUserDTO> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
